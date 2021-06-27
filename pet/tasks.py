@@ -271,7 +271,7 @@ class YelpPolarityProcessor(DataProcessor):
         examples = []
 
         with open(path) as f:
-            reader = csv.reader(f, delimiter=',')
+            reader = csv.reader(f, delimiter='\t')
             for idx, row in enumerate(reader):
                 label, body = row
                 guid = "%s-%s" % (set_type, idx)
