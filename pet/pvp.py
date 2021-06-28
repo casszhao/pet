@@ -353,6 +353,34 @@ class MnliPVP(PVP):
             return MnliPVP.VERBALIZER_A[label]
         return MnliPVP.VERBALIZER_B[label]
 
+class BiToxicPVP(PVP):
+    VERBALIZER = {
+        "1": ["bad"],
+        "0": ["good"]
+    }
+
+    # VERBALIZER_B = {
+    #     "contradiction": ["dont"],
+    #     "entailment": ["really"]
+    # }
+
+    def get_parts(self, example: InputExample) -> FilledPattern:
+        text = self.shortenable(example.text_a)
+
+        if self.pattern_id == 0:
+            return ['They are ', self.mask, '. Since, ', text], []
+        # elif self.pattern_id == 1:
+        #     return ['I ', self.mask, ' hate them. Since ', text], []
+        # elif self.pattern_id == 2:
+        #     return ['Just', self.mask, "!"], [text]
+        # elif self.pattern_id == 3:
+        #     return [text], ['In summary, the restaurant is', self.mask, '.']
+        else:
+            raise ValueError("No pattern implemented for id {}".format(self.pattern_id))
+
+    def verbalize(self, label) -> List[str]:
+        return BiToxicPVP.VERBALIZER[label]
+
 
 class YelpPolarityPVP(PVP):
     VERBALIZER = {
@@ -637,4 +665,5 @@ PVPS = {
     'record': RecordPVP,
     'ax-b': RtePVP,
     'ax-g': RtePVP,
+    'binary-toxic': BiToxicPVP,
 }
