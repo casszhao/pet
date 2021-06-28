@@ -65,7 +65,7 @@ def load_sequence_classifier_configs(args) -> Tuple[WrapperConfig, pet.TrainConf
                               verbalizer_file=args.verbalizer_file, cache_dir=args.cache_dir)
 
     train_cfg = pet.TrainConfig(device=args.device, per_gpu_train_batch_size=args.sc_per_gpu_train_batch_size,
-                                per_gpu_unlabeled_batch_size=args.sc_per_gpu_unlabeled_batch_size, n_gpu=args.n_gpu,
+                                per_gpu_unkabeled_batch_size=args.sc_per_gpu_unlabeled_batch_size, n_gpu=args.n_gpu,
                                 num_train_epochs=args.sc_num_train_epochs, max_steps=args.sc_max_steps,
                                 temperature=args.temperature,
                                 gradient_accumulation_steps=args.sc_gradient_accumulation_steps,
