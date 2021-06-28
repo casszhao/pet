@@ -1,0 +1,24 @@
+workable parameters
+
+--method
+pet
+--pattern_ids
+0
+1
+2
+3
+--data_dir
+./data/yelp/
+--model_type
+albert
+--model_name_or_path
+albert-base-v1
+--task_name
+yelp-full
+--output_dir
+./model/
+--do_train
+--do_eval
+
+
+testing on Yelp full, 4 patterns and 5 labels
