@@ -466,6 +466,8 @@ def train_single_model(model: TransformerModelWrapper, train_data: List[InputExa
     return results_dict
 
 
+# need to change to F1
+
 def evaluate(model: TransformerModelWrapper, eval_data: List[InputExample], config: EvalConfig,
              priming_data: List[InputExample] = None) -> Dict:
     """
@@ -475,6 +477,7 @@ def evaluate(model: TransformerModelWrapper, eval_data: List[InputExample], conf
     :param eval_data: the examples for evaluation
     :param config: the evaluation config
     :param priming_data: an optional list of priming data to use
+
     :return: a dictionary containing the model's logits, predictions and (if any metrics are given) scores
     """
 
@@ -482,7 +485,7 @@ def evaluate(model: TransformerModelWrapper, eval_data: List[InputExample], conf
         for example in eval_data:
             example.meta['priming_data'] = priming_data
 
-    metrics = config.metrics if config.metrics else ['acc']
+    metrics = config.metrics if config.metrics else ['f1']
     device = torch.device(config.device if config.device else "cuda" if torch.cuda.is_available() else "cpu")
 
     model.model.to(device)
