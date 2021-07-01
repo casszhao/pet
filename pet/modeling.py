@@ -431,7 +431,7 @@ def train_single_model(model: TransformerModelWrapper, train_data: List[InputExa
     model.model.to(device)
 
     if train_data and return_train_set_results:
-        results_dict['train_set_before_training'] = evaluate(model, train_data, eval_config)['scores']['acc']
+        results_dict['train_set_before_training'] = evaluate(model, train_data, eval_config)['scores']['f1']
 
     all_train_data = train_data + ipet_train_data
 
@@ -461,7 +461,7 @@ def train_single_model(model: TransformerModelWrapper, train_data: List[InputExa
         results_dict['average_loss'] = tr_loss
 
     if train_data and return_train_set_results:
-        results_dict['train_set_after_training'] = evaluate(model, train_data, eval_config)['scores']['acc']
+        results_dict['train_set_after_training'] = evaluate(model, train_data, eval_config)['scores']['f1']
 
     return results_dict
 
@@ -499,9 +499,9 @@ def evaluate(model: TransformerModelWrapper, eval_data: List[InputExample], conf
         if metric == 'acc':
             scores[metric] = simple_accuracy(predictions, results['labels'])
         elif metric == 'f1':
-            scores[metric] = f1_score(results['labels'], predictions)
+            scores[metric] = f1_score(results['labels'], predictions, zero_division=1)
         elif metric == 'f1-macro':
-            scores[metric] = f1_score(results['labels'], predictions, average='macro')
+            scores[metric] = f1_score(results['labels'], predictions, average='macro', zero_division=1)
         elif metric == 'em':
             scores[metric] = exact_match(predictions, results['labels'], results['question_ids'])
         else:

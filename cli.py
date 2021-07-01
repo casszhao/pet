@@ -21,7 +21,7 @@ from typing import Tuple
 
 import torch
 
-from pet.tasks import PROCESSORS, load_examples, UNLABELED_SET, TRAIN_SET, DEV_SET, TEST_SET, METRICS, DEFAULT_METRICS
+from pet.tasks import PROCESSORS, load_examples, UNLABELED_SET, TRAIN_SET, DEV_SET, TEST_SET, METRICS, DEFAULT_METRICS # METRICS dictionary DEFAULT_METRICS list
 from pet.utils import eq_div
 from pet.wrapper import WRAPPER_TYPES, MODEL_CLASSES, SEQUENCE_CLASSIFIER_WRAPPER, WrapperConfig
 import pet
@@ -251,6 +251,7 @@ def main():
         args.task_name, args.data_dir, UNLABELED_SET, num_examples=args.unlabeled_examples)
 
     args.metrics = METRICS.get(args.task_name, DEFAULT_METRICS)
+    print('args.metrics', args.metrics)
 
     pet_model_cfg, pet_train_cfg, pet_eval_cfg = load_pet_configs(args)
     sc_model_cfg, sc_train_cfg, sc_eval_cfg = load_sequence_classifier_configs(args)
